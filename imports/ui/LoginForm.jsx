@@ -1,12 +1,12 @@
-import { Meteor } from 'meteor/meteor';
-import React, { useState } from 'react';
-import { LoginWithGithub } from './LoginWithGithub';
+import { Meteor } from "meteor/meteor";
+import React, { useState } from "react";
+import { LoginWithGithub } from "./LoginWithGithub";
 
 export const LoginForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const submit = e => {
+  const submit = (e) => {
     e.preventDefault();
 
     Meteor.loginWithPassword(username, password);
@@ -14,7 +14,7 @@ export const LoginForm = () => {
 
   return (
     <form onSubmit={submit} className="login-form">
-        <LoginWithGithub />
+      <LoginWithGithub />
       <div>
         <label htmlFor="username">Username</label>
         <input
@@ -22,7 +22,7 @@ export const LoginForm = () => {
           placeholder="Username"
           name="username"
           required
-          onChange={e => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
       </div>
 
@@ -34,7 +34,7 @@ export const LoginForm = () => {
           placeholder="Password"
           name="password"
           required
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       <div>
