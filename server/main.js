@@ -10,10 +10,10 @@ const insertTask = (taskText, user) =>
     createdAt: new Date(),
   });
 
-const SEED_USERNAME = 'meteorite';
-const SEED_PASSWORD = 'password';
+const SEED_USERNAME = "meteorite";
+const SEED_PASSWORD = "password";
 
-Meteor.startup(() => {
+Meteor.startup(async () => {
   if (!Accounts.findUserByUsername(SEED_USERNAME)) {
     Accounts.createUser({
       username: SEED_USERNAME,
@@ -21,17 +21,15 @@ Meteor.startup(() => {
     });
   }
 
-  const user = Accounts.findUserByUsername(SEED_USERNAME);
-
-  if (TasksCollection.find().count() === 0) {
+  if ((await TasksCollection.find().countAsync()) === 0) {
     [
-      'First Task',
-      'Second Task',
-      'Third Task',
-      'Fourth Task',
-      'Fifth Task',
-      'Sixth Task',
-      'Seventh Task',
+      "First Task",
+      "Second Task",
+      "Third Task",
+      "Fourth Task",
+      "Fifth Task",
+      "Sixth Task",
+      "Seventh Task",
     ].forEach(insertTask);
   }
 });
