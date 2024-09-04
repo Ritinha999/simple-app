@@ -14,7 +14,11 @@ const SEED_USERNAME = "meteorite";
 const SEED_PASSWORD = "password";
 
 Meteor.startup(async () => {
-  if (!Accounts.findUserByUsername(SEED_USERNAME)) {
+  const user = await Meteor.users.findOneAsync({
+    username: SEED_USERNAME,
+  });
+
+  if (!user) {
     Accounts.createUserAsync({
       username: SEED_USERNAME,
       password: SEED_PASSWORD,
