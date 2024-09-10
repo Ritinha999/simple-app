@@ -23,25 +23,21 @@ export const App = () => {
 
   const [hideCompleted, setHideCompleted] = useState(false);
 
-  const hideCompletedFilter = { isChecked: { $ne: true } };
-
-  const userFilter = user ? { userId: user._id } : {};
-
-  const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
+  const filter = hideCompleted ? { isChecked: { $ne: true } } : {};
 
   /**
    * isLoading ist eine Funktion, die true zurückgibt, wenn die Subscription noch nicht abgeschlossen ist.
    */
   const isLoading = useSubscribe("tasks");
 
-  const tasks = useTracker(() => TasksCollection.find({}).fetch());
+  const tasks = useTracker(() => TasksCollection.find(filter).fetch());
 
   const pendingTasksCount = useTracker(() => {
     if (!user) {
       return 0;
     }
 
-    return TasksCollection.find(pendingOnlyFilter).count();
+    return TasksCollection.find(filter).count();
   });
 
   const pendingTasksTitle = `${
