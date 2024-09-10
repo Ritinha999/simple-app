@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React, { useState, Fragment } from 'react';
-import { useTracker } from 'meteor/react-meteor-data';
+import { useTracker, useSubscribe } from 'meteor/react-meteor-data';
 import { TasksCollection } from '/imports/db/TasksCollection';
 import { Task } from './Task';
 import { TaskForm } from './TaskForm';
@@ -29,7 +29,13 @@ export const App = () => {
 
   const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
 
-  const tasks = useTracker(() => {
+  const isLoading = useSubscribe("tasks");
+  const tasks = useTracker(() => TasksCollection.find({}).fetch());{
+    
+    if (isLoading()) {
+      return <div>Loading...</div>;
+    }
+    
     if (!user) {
       return [];
     }
@@ -40,7 +46,7 @@ export const App = () => {
         sort: { createdAt: -1 },
       }
     ).fetch();
-  });
+  };
 
   const pendingTasksCount = useTracker(() => {
     if (!user) {
