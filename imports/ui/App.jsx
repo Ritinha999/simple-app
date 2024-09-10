@@ -30,23 +30,7 @@ export const App = () => {
   const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
 
   const isLoading = useSubscribe("tasks");
-  const tasks = useTracker(() => TasksCollection.find({}).fetch());{
-    
-    if (isLoading()) {
-      return <div>Loading...</div>;
-    }
-    
-    if (!user) {
-      return [];
-    }
-
-    return TasksCollection.find(
-      hideCompleted ? pendingOnlyFilter : userFilter,
-      {
-        sort: { createdAt: -1 },
-      }
-    ).fetch();
-  };
+  const tasks = useTracker(() => TasksCollection.find({}).fetch());
 
   const pendingTasksCount = useTracker(() => {
     if (!user) {
