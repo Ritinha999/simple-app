@@ -29,7 +29,11 @@ export const App = () => {
 
   const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
 
+  /**
+   * isLoading ist eine Funktion, die true zurückgibt, wenn die Subscription noch nicht abgeschlossen ist.
+   */
   const isLoading = useSubscribe("tasks");
+
   const tasks = useTracker(() => TasksCollection.find({}).fetch());
 
   const pendingTasksCount = useTracker(() => {
@@ -45,6 +49,10 @@ export const App = () => {
   }`;
 
   const logout = () => Meteor.logout();
+
+  if (isLoading()) {
+    return <div className="loading">loading...</div>;
+  }
 
   return (
     <div className="app">
