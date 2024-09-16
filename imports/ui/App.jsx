@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React, { useState, Fragment } from 'react';
-import { useTracker } from 'meteor/react-meteor-data';
+import { useTracker, useSubscribe } from 'meteor/react-meteor-data';
 import { TasksCollection } from '/imports/db/TasksCollection';
 import { Task } from './Task';
 import { TaskForm } from './TaskForm';
@@ -23,31 +23,21 @@ export const App = () => {
 
   const [hideCompleted, setHideCompleted] = useState(false);
 
-  const hideCompletedFilter = { isChecked: { $ne: true } };
+  const filter = hideCompleted ? { isChecked: { $ne: true } } : {};
 
-  const userFilter = user ? { userId: user._id } : {};
+  /**
+   * isLoading ist eine Funktion, die true zurückgibt, wenn die Subscription noch nicht abgeschlossen ist.
+   */
+  const isLoading = useSubscribe("tasks");
 
-  const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
-
-  const tasks = useTracker(() => {
-    if (!user) {
-      return [];
-    }
-
-    return TasksCollection.find(
-      hideCompleted ? pendingOnlyFilter : userFilter,
-      {
-        sort: { createdAt: -1 },
-      }
-    ).fetch();
-  });
+  const tasks = useTracker(() => TasksCollection.find(filter).fetch());
 
   const pendingTasksCount = useTracker(() => {
     if (!user) {
       return 0;
     }
 
-    return TasksCollection.find(pendingOnlyFilter).count();
+    return TasksCollection.find(filter).count();
   });
 
   const pendingTasksTitle = `${
@@ -55,6 +45,10 @@ export const App = () => {
   }`;
 
   const logout = () => Meteor.logout();
+
+  if (isLoading()) {
+    return <div className="loading">loading...</div>;
+  }
 
   return (
     <div className="app">
