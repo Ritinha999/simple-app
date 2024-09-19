@@ -5,8 +5,10 @@ import { TasksCollection } from "/imports/db/TasksCollection";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { LoginForm } from "./LoginForm";
+import { Ueberschrift2 } from "./Ueberschrift2";
 import { Ueberschrift } from "./Ueberschrift";
 import { Bewertung } from "./Bewertung";
+import { ListAlt as ListAltIcon } from '@mui/icons-material';
 
 const toggleChecked = ({ _id, isChecked }) => {
   Meteor.call("tasks.setIsChecked", _id, !isChecked);
@@ -52,18 +54,19 @@ export const App = () => {
     return <div className="loading">loading...</div>;
   }
 
+  /* <Bewertung label="Ist die App super?" /> */
+
   return (
     <div className="app">
       <header>
         <div className="app-bar">
-          <div className="app-header">
-            <Ueberschrift title="📝️ Rita's To-Do List" />
-          </div>
+        <div className="app-header" style={{ display: 'flex', alignItems: 'center' }}>
+          <ListAltIcon sx={{ fontSize: 40, mr: 2 }} />  {/* Icon vor dem Text */}
+          <Ueberschrift2 title="Rita's To-Do List" />
+        </div>
         </div>
       </header>
-
       <div className="main">
-        <Bewertung label="Ist die App super?" />
         {user ? (
           <Fragment>
             <div className="user" onClick={logout}>

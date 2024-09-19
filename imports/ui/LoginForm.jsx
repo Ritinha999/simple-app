@@ -1,45 +1,66 @@
 import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
+import { Button, TextField, Container, Typography, Box } from '@mui/material';
 import { LoginWithGithub } from './LoginWithGithub';
 
 export const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const submit = e => {
+  const submit = (e) => {
     e.preventDefault();
-
     Meteor.loginWithPassword(username, password);
   };
 
   return (
-    <form onSubmit={submit} className="login-form">
+    <Container maxWidth="xs">
+      <Box
+        component="form"
+        onSubmit={submit}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          mt: 4,
+        }}
+      >
+        <Typography 
+        variant="h4" 
+        align="center" 
+        sx={{
+          fontWeight: 'bold', 
+          color: 'primary.main',  // Verwende die Primärfarbe der App
+          mb: 3, // Margin-Bottom, um Abstand zu schaffen
+          }}
+        >
+         Log In
+        </Typography>
+
         <LoginWithGithub />
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
+
+        <TextField
+          label="Username"
+          variant="outlined"
+          fullWidth
           required
-          onChange={e => setUsername(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-      </div>
 
-      <div>
-        <label htmlFor="password">Password</label>
-
-        <input
+        <TextField
+          label="Password"
+          variant="outlined"
           type="password"
-          placeholder="Password"
-          name="password"
+          fullWidth
           required
-          onChange={e => setPassword(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-      </div>
-      <div>
-        <button type="submit">Log In</button>
-      </div>
-    </form>
+
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Log In
+        </Button>
+      </Box>
+    </Container>
   );
 };
