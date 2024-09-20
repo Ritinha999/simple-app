@@ -5,7 +5,6 @@ import { TasksCollection } from "/imports/db/TasksCollection";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { LoginForm } from "./LoginForm";
-import { Ueberschrift2 } from "./Ueberschrift2";
 import { Ueberschrift } from "./Ueberschrift";
 import { Bewertung } from "./Bewertung"; 
 import { ListAlt as ListAltIcon } from '@mui/icons-material';
