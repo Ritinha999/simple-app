@@ -7,7 +7,7 @@ import { TaskForm } from "./TaskForm";
 import { LoginForm } from "./LoginForm";
 import { Ueberschrift2 } from "./Ueberschrift2";
 import { Ueberschrift } from "./Ueberschrift";
-import { Bewertung } from "./Bewertung";
+import { Bewertung } from "./Bewertung"; 
 import { ListAlt as ListAltIcon } from '@mui/icons-material';
 
 const toggleChecked = ({ _id, isChecked }) => {
@@ -60,9 +60,8 @@ export const App = () => {
     <div className="app">
       <header>
         <div className="app-bar">
-        <div className="app-header" style={{ display: 'flex', alignItems: 'center' }}>
-          <ListAltIcon sx={{ fontSize: 40, mr: 2 }} />  {/* Icon vor dem Text */}
-          <Ueberschrift2 title="Rita's To-Do List" />
+        <div className="app-header" style={{ display: 'flex', }}>
+          <Ueberschrift>Rita's To-List</Ueberschrift>
         </div>
         </div>
       </header>

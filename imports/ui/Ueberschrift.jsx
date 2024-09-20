@@ -1,7 +1,8 @@
+import React from "react";
 import { Typography, Box } from '@mui/material';
 import { ListAlt as ListAltIcon } from '@mui/icons-material';
 
-export const Ueberschrift = ({ title }) => {
+export const Ueberschrift = ({ children }) => {
   return (
     <Box 
       sx={{
@@ -18,7 +19,7 @@ export const Ueberschrift = ({ title }) => {
     >
       <ListAltIcon sx={{ fontSize: 40, mr: 2 }} />  {/* Icon vor dem Text */}
       <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold' }}>
-        {title}
+        {children}
       </Typography>
     </Box>
   );
