@@ -8,6 +8,7 @@ import { LoginForm } from "./LoginForm";
 import { Ueberschrift } from "./Ueberschrift";
 import { Bewertung } from "./Bewertung"; 
 import { ListAlt as ListAltIcon } from '@mui/icons-material';
+import { Tasks } from "./Tasks";
 
 const toggleChecked = ({ _id, isChecked }) => {
   Meteor.call("tasks.setIsChecked", _id, !isChecked);
@@ -79,16 +80,8 @@ export const App = () => {
               </button>
             </div>
 
-            <ul className="tasks">
-              {tasks.map((task) => (
-                <Task
-                  key={task._id}
-                  task={task}
-                  onCheckboxClick={toggleChecked}
-                  onDeleteClick={deleteTask}
-                />
-              ))}
-            </ul>
+            <Tasks tasks={tasks} toggleChecked={toggleChecked} deleteTask={deleteTask}/>
+
           </Fragment>
         ) : (
           <LoginForm />
