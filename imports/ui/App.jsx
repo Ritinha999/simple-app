@@ -2,25 +2,15 @@ import { Meteor } from "meteor/meteor";
 import React, { useState, Fragment } from "react";
 import { useTracker, useSubscribe } from "meteor/react-meteor-data";
 import { TasksCollection } from "/imports/db/TasksCollection";
-import { Task } from "./Task";
-import { TaskForm } from "./TaskForm";
 import { LoginForm } from "./LoginForm";
 import { Ueberschrift } from "./Ueberschrift";
-import { Bewertung } from "./Bewertung"; 
-import { ListAlt as ListAltIcon } from '@mui/icons-material';
-import { Tasks } from "./Tasks";
+import { Box, Typography } from '@mui/material';
+import { TaskManager } from "./TaskManager";
+
 
 const toggleChecked = ({ _id, isChecked }) => {
   Meteor.call("tasks.setIsChecked", _id, !isChecked);
-
-  /* TasksCollection.update(_id, {
-    $set: {
-      isChecked: !isChecked,
-    },
-  }); */
 };
-
-const deleteTask = ({ _id }) => Meteor.call("tasks.remove", _id);
 
 export const App = () => {
   const user = useTracker(() => Meteor.user());
@@ -61,32 +51,28 @@ export const App = () => {
       <header>
         <div className="app-bar">
         <div className="app-header" style={{ display: 'flex', }}>
-          <Ueberschrift>Rita's To-List</Ueberschrift>
+          <Ueberschrift>Rita's To-Do Liste</Ueberschrift>
         </div>
         </div>
       </header>
-      <div className="main">
-        {user ? (
-          <Fragment>
-            <div className="user" onClick={logout}>
-              username: {user.username}
-            </div>
+      <Box className="main" sx={{ padding: 4 }}>
+      {user ? (
+        <Fragment>
+          <Box className="user" sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
+            <Typography variant="h6" component="div" sx={{ cursor: 'pointer', fontWeight: 'bold' }} onClick={logout}
+            // Hallo du da, ich bin ein Kommentar
+            >
+              Username: {user.username}
+            </Typography>
+          </Box>
 
-            <TaskForm user={user} />
+          <TaskManager tasks={tasks} />
 
-            <div className="filter">
-              <button onClick={() => setHideCompleted(!hideCompleted)}>
-                {hideCompleted ? "Show All" : "Hide Completed"}
-              </button>
-            </div>
-
-            <Tasks tasks={tasks} toggleChecked={toggleChecked} deleteTask={deleteTask}/>
-
-          </Fragment>
-        ) : (
-          <LoginForm />
-        )}
-      </div>
+        </Fragment>
+      ) : (
+        <LoginForm />
+      )}
+    </Box>
     </div>
   );
 };
