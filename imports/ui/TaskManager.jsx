@@ -13,9 +13,10 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import TaskIcon from "@mui/icons-material/Task";
+import { TasksCollection } from "/imports/db/TasksCollection";
+import { useTracker, useSubscribe } from "meteor/react-meteor-data";
 
-export const TaskManager = ({ tasks }) => {
+export const TaskManager = ({}) => {
   // tasks und setTasks werden als Props übergeben
   const [text, setText] = useState("");
 
@@ -23,19 +24,14 @@ export const TaskManager = ({ tasks }) => {
     e.preventDefault();
     if (!text) return;
 
-    const newTask = {
-      text,
-      isChecked: false,
-    };
-
     setText("");
 
     Meteor.call("tasks.insert", text, (err, res) => {
-        if (err) {
-          console.log(err);
-          alert(err);
-        }
-      });
+      if (err) {
+        console.log(err);
+        alert(err);
+      }
+    });
   };
 
   const handleCheckboxClick = (task) => {
@@ -45,6 +41,14 @@ export const TaskManager = ({ tasks }) => {
   const handleDeleteClick = (task) => {
     Meteor.call("tasks.remove", task._id);
   };
+
+  const tasks = useTracker(() => TasksCollection.find({}).fetch());
+
+  const isLoading = useSubscribe("tasks");
+
+  if (isLoading()) {
+    return <div className="loading">loading...</div>;
+  }
 
   return (
     <Box
