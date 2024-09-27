@@ -8,7 +8,7 @@ import { MenuBar } from "./MenuBar";
 
 export const App = () => {
   const user = useTracker(() => Meteor.user());
-
+  
   return (
     <div className="app">
       <MenuBar>Rita's To-Do Liste</MenuBar>

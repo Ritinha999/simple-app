@@ -15,6 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { TasksCollection } from "/imports/db/TasksCollection";
 import { useTracker, useSubscribe } from "meteor/react-meteor-data";
+import { LoadingScreen } from "./LoadingScreen";
 
 export const TaskManager = ({}) => {
   // tasks und setTasks werden als Props übergeben
@@ -47,7 +48,7 @@ export const TaskManager = ({}) => {
   const isLoading = useSubscribe("tasks");
 
   if (isLoading()) {
-    return <div className="loading">loading...</div>;
+    return <LoadingScreen />;
   }
 
   return (
