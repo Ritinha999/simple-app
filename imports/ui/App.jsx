@@ -14,6 +14,9 @@ export const App = () => {
   const darkTheme = createTheme({
     palette: {
       mode: "light",
+      primary: {
+        main: "#FF69B4",
+      }
     },
   });
 

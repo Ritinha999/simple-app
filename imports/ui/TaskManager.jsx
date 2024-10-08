@@ -16,6 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { TasksCollection } from "/imports/db/TasksCollection";
 import { useTracker, useSubscribe } from "meteor/react-meteor-data";
 import { LoadingScreen } from "./LoadingScreen";
+import { useTasks } from "./useTasks";
 
 export const TaskManager = ({}) => {
   // tasks und setTasks werden als Props übergeben
@@ -43,7 +44,11 @@ export const TaskManager = ({}) => {
     Meteor.call("tasks.remove", task._id);
   };
 
-  const tasks = useTracker(() => TasksCollection.find({}).fetch());
+  const { tasks, loading } = useTasks();
+
+  if (loading) {
+    return <LoadingScreen></LoadingScreen>
+  }
 
   const isLoading = useSubscribe("tasks");
 
