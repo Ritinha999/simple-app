@@ -5,7 +5,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ListItemSecondaryAction,
   IconButton,
   Checkbox,
   TextField,
@@ -17,9 +16,8 @@ import { LoadingScreen } from "./LoadingScreen";
 import { useTasks } from "./useTasks";
 
 export const TaskManager = ({}) => {
-  // tasks und setTasks werden als Props übergeben
-  const [text, setText] = useState("");
 
+  const [text, setText] = useState("");
   const { tasks, loading } = useTasks();
 
   const handleSubmit = (e) => {
