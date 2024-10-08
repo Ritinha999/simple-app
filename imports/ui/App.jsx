@@ -15,7 +15,7 @@ export const App = () => {
     palette: {
       mode: "light",
       primary: {
-        main: "#FF69B4",
+        main: "#FE68B3",
       }
     },
   });
