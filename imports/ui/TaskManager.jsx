@@ -13,14 +13,14 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { TasksCollection } from "/imports/db/TasksCollection";
-import { useTracker, useSubscribe } from "meteor/react-meteor-data";
 import { LoadingScreen } from "./LoadingScreen";
 import { useTasks } from "./useTasks";
 
 export const TaskManager = ({}) => {
   // tasks und setTasks werden als Props übergeben
   const [text, setText] = useState("");
+
+  const { tasks, loading } = useTasks();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,16 +44,8 @@ export const TaskManager = ({}) => {
     Meteor.call("tasks.remove", task._id);
   };
 
-  const { tasks, loading } = useTasks();
-
   if (loading) {
-    return <LoadingScreen></LoadingScreen>
-  }
-
-  const isLoading = useSubscribe("tasks");
-
-  if (isLoading()) {
-    return <LoadingScreen />;
+    return <LoadingScreen></LoadingScreen>;
   }
 
   return (
