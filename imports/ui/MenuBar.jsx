@@ -12,8 +12,6 @@ export function MenuBar({}) {
   const user = useTracker(() => Meteor.user());
   const logout = () => Meteor.logout();
 
-  console.log(user);
-
   if (user) {
     return (
       <Box sx={{ flexGrow: 1 }}>
@@ -32,7 +30,9 @@ export function MenuBar({}) {
               Rita's To-Do Liste
             </Typography>
 
-            <Button color="inherit" onClick={logout}>Username: {user.username}</Button>
+            <Button color="inherit" onClick={logout}>
+              Username: {user.username}
+            </Button>
           </Toolbar>
         </AppBar>
       </Box>

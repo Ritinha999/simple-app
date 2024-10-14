@@ -5,7 +5,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ListItemSecondaryAction,
   IconButton,
   Checkbox,
   TextField,
@@ -13,13 +12,50 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { TasksCollection } from "/imports/db/TasksCollection";
-import { useTracker, useSubscribe } from "meteor/react-meteor-data";
 import { LoadingScreen } from "./LoadingScreen";
+import { useTasks } from "./useTasks";
+
+const handleCheckboxClick = (task) => {
+  Meteor.call("tasks.setIsChecked", task._id, !task.isChecked);
+};
+
+const handleDeleteClick = (task) => {
+  Meteor.call("tasks.remove", task._id);
+};
+
+const TaskItem = ({ task }) => {
+  return (
+    <ListItem
+      secondaryAction={
+        <IconButton
+          edge="end"
+          aria-label="delete"
+          onClick={() => handleDeleteClick(task)}
+        >
+          <DeleteIcon />
+        </IconButton>
+      }
+    >
+      <ListItemIcon>
+        <Checkbox
+          edge="start"
+          checked={task.isChecked}
+          tabIndex={-1}
+          disableRipple
+          onClick={() => handleCheckboxClick(task)}
+        />
+      </ListItemIcon>
+      <ListItemText
+        primary={task.text}
+        sx={{ textDecoration: task.isChecked ? "line-through" : "none" }}
+      />
+    </ListItem>
+  );
+};
 
 export const TaskManager = ({}) => {
-  // tasks und setTasks werden als Props übergeben
   const [text, setText] = useState("");
+  const { tasks, loading } = useTasks();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,20 +71,8 @@ export const TaskManager = ({}) => {
     });
   };
 
-  const handleCheckboxClick = (task) => {
-    Meteor.call("tasks.setIsChecked", task._id, !task.isChecked);
-  };
-
-  const handleDeleteClick = (task) => {
-    Meteor.call("tasks.remove", task._id);
-  };
-
-  const tasks = useTracker(() => TasksCollection.find({}).fetch());
-
-  const isLoading = useSubscribe("tasks");
-
-  if (isLoading()) {
-    return <LoadingScreen />;
+  if (loading) {
+    return <LoadingScreen></LoadingScreen>;
   }
 
   return (
@@ -86,34 +110,9 @@ export const TaskManager = ({}) => {
       </Box>
 
       <List>
-        {tasks.map((task, index) => (
-          <ListItem
-            key={index}
-            secondaryAction={
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                onClick={() => handleDeleteClick(task)}
-              >
-                <DeleteIcon />
-              </IconButton>
-            }
-          >
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={task.isChecked}
-                tabIndex={-1}
-                disableRipple
-                onClick={() => handleCheckboxClick(task)}
-              />
-            </ListItemIcon>
-            <ListItemText
-              primary={task.text}
-              sx={{ textDecoration: task.isChecked ? "line-through" : "none" }}
-            />
-          </ListItem>
-        ))}
+        {tasks.map((task, index) => {
+          return <TaskItem key={index} task={task} />;
+        })}
       </List>
     </Box>
   );
