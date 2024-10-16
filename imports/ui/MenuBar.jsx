@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { ListAlt as ListAltIcon } from "@mui/icons-material";
 import { useTracker } from "meteor/react-meteor-data";
+import ProfilMenu from "./ProfilMenu";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export function MenuBar({}) {
   const user = useTracker(() => Meteor.user());
@@ -30,9 +32,8 @@ export function MenuBar({}) {
               Rita's To-Do Liste
             </Typography>
 
-            <Button color="inherit" onClick={logout}>
-              Username: {user.username}
-            </Button>
+            <ProfilMenu></ProfilMenu>
+
           </Toolbar>
         </AppBar>
       </Box>
