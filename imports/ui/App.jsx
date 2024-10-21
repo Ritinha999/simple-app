@@ -1,6 +1,5 @@
 import { Meteor } from "meteor/meteor";
 import React from "react";
-import { useTracker } from "meteor/react-meteor-data";
 import { LoginForm } from "./LoginForm";
 import { Box } from "@mui/material";
 import { TaskManager } from "./TaskManager";
@@ -12,10 +11,10 @@ import {
   Routes,
   Route,
   Navigate,
-  Outlet,
 } from "react-router-dom";
 import { Dummy } from "./Dummy";
 import PrivateRoute from "./PrivateRoute";
+import { Account } from "./Account";
 
 export const App = () => {
   const darkTheme = createTheme({
@@ -31,12 +30,13 @@ export const App = () => {
     <ThemeProvider theme={darkTheme}>
       <Box>
         <CssBaseline />
-        <MenuBar>Rita's To-Do Liste</MenuBar>
         <Router>
+          <MenuBar>Rita's To-Do Liste</MenuBar>
           <Routes>
             <Route path="/" element={<Navigate to="/tasks" />} />
             <Route path="/about" element={<Dummy />} />
             <Route path="/login" element={<LoginForm />} />
+            <Route path="/account" element={<Account />} />
             <Route element={<PrivateRoute />}>
               <Route path="/tasks" element={<TaskManager />} />
             </Route>
