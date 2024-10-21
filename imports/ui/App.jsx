@@ -15,6 +15,8 @@ import {
 import { Dummy } from "./Dummy";
 import PrivateRoute from "./PrivateRoute";
 import { Account } from "./Account";
+import { Categories } from "../collections/categories/client/components/Categories";
+
 
 export const App = () => {
   const darkTheme = createTheme({
@@ -39,6 +41,7 @@ export const App = () => {
             <Route element={<PrivateRoute />}>
               <Route path="/tasks" element={<TaskManager />} />
               <Route path="/account" element={<Account />} />
+              <Route path="/categories" element={<Categories />} />
             </Route>
           </Routes>
         </Router>

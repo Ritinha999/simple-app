@@ -2,10 +2,8 @@ import { Meteor } from "meteor/meteor";
 import 'meteor/aldeed:collection2/dynamic';
 import 'meteor/aldeed:collection2/static';
 import { Accounts } from "meteor/accounts-base";
-import { TasksCollection } from "/imports/collections/tasks/iso/db/TasksCollection";
-import "/imports/collections/tasks/server/TasksInit";
-import "/imports/collections/tasks/server/TasksMethods";
-import "/imports/collections/tasks/server/TasksPublications";
+import "/imports/collections/tasks/server";
+import "/imports/collections/categories/server";
 
 Collection2.load();
 

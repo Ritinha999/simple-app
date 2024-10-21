@@ -1,12 +1,12 @@
 import SimpleSchema from "meteor/aldeed:simple-schema";
 
-export const TasksSchema = new SimpleSchema({
-  text: {
+export const CategoriesSchema = new SimpleSchema({
+  title: {
     type: String,
     max: 100,
   },
-  isChecked: {
-    type: Boolean,
+  modifiedAt: {
+    type: Date,
     required: false,
   },
   createdAt: {
@@ -14,5 +14,9 @@ export const TasksSchema = new SimpleSchema({
   },
   userId: {
     type: String,
+  },
+  color: {
+    type: String,
+    required: false,
   },
 });
