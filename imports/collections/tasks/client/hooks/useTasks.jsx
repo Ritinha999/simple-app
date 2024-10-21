@@ -1,4 +1,4 @@
-import { TasksCollection } from "../db/TasksCollection";
+import { TasksCollection } from "../../iso/db/TasksCollection";
 import { useFind, useSubscribe } from "meteor/react-meteor-data";
 
 /**

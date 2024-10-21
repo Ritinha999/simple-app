@@ -2,7 +2,7 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import { LoginForm } from "./LoginForm";
 import { Box } from "@mui/material";
-import { TaskManager } from "./TaskManager";
+import { TaskManager } from "../collections/tasks/client/components/TaskManager";
 import { MenuBar } from "./MenuBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -36,9 +36,9 @@ export const App = () => {
             <Route path="/" element={<Navigate to="/tasks" />} />
             <Route path="/about" element={<Dummy />} />
             <Route path="/login" element={<LoginForm />} />
-            <Route path="/account" element={<Account />} />
             <Route element={<PrivateRoute />}>
               <Route path="/tasks" element={<TaskManager />} />
+              <Route path="/account" element={<Account />} />
             </Route>
           </Routes>
         </Router>

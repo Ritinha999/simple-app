@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { LoadingScreen } from "./LoadingScreen";
-import { useTasks } from "./useTasks";
+import { LoadingScreen } from "../../../../ui/LoadingScreen";
+import { useTasks } from "../hooks/useTasks";
 
 const handleCheckboxClick = (task) => {
   Meteor.call("tasks.setIsChecked", task._id, !task.isChecked);

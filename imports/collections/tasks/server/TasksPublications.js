@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { TasksCollection } from "/imports/db/TasksCollection";
+import { TasksCollection } from "../iso/db/TasksCollection";
 
 Meteor.publish("tasks", async () => {
   const id = Meteor.userId();
