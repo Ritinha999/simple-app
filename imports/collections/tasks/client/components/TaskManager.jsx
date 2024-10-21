@@ -39,7 +39,7 @@ const TaskItem = ({ task }) => {
       <ListItemIcon>
         <Checkbox
           edge="start"
-          checked={task.isChecked}
+          checked={!!task.isChecked}
           tabIndex={-1}
           disableRipple
           onClick={() => handleCheckboxClick(task)}
