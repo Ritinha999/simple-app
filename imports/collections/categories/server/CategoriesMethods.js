@@ -4,50 +4,35 @@ import { CategoriesCollection } from "../iso/db/CategoriesCollection";
 
 Meteor.methods({
   /**
-   * Insert a task into the TasksCollection
-   * @param {String} text Text of the task
+   * Insert a category into the CategoriesCollection
+   * @param {String} title Text of the category
    */
-  async "categories.insert"(text) {
-    check(text, String);
-    text = text.trim();
+  async "categories.insert"(title) {
+    check(title, String);
+    title = title.trim();
 
     if (!this.userId) {
       throw new Meteor.Error("Not authorized.");
     }
 
-    if (text === "") {
-      throw new Meteor.Error("Text is required.");
+    if (title === "") {
+      throw new Meteor.Error("Title is required.");
     }
 
     await CategoriesCollection.insertAsync({
-      text,
+      title,
       createdAt: new Date(),
       userId: this.userId,
     });
   },
 
-  async "categories.remove"(taskId) {
-    check(taskId, String);
+  async "categories.remove"(id) {
+    check(id, String);
 
     if (!this.userId) {
       throw new Meteor.Error("Not authorized.");
     }
 
-    await CategoriesCollection.removeAsync(taskId);
-  },
-
-  async "categories.setIsChecked"(taskId, isChecked) {
-    check(taskId, String);
-    check(isChecked, Boolean);
-
-    if (!this.userId) {
-      throw new Meteor.Error("Not authorized.");
-    }
-
-    await CategoriesCollection.updateAsync(taskId, {
-      $set: {
-        isChecked,
-      },
-    });
+    await CategoriesCollection.removeAsync(id);
   },
 });
