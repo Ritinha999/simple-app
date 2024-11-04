@@ -79,10 +79,10 @@ export const TaskManager = ({}) => {
     <Box
       sx={{
         width: "100%",
-        maxWidth: 500,
-        bgcolor: "background.paper",
-        margin: "auto",
-        mt: 3,
+        alignItems: "center",
+        justifyContent: "center",
+        height: "75vh",
+        padding: 10,
       }}
     >
       <Box

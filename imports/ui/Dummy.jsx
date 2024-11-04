@@ -1,12 +1,24 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 /**
  * Just a dummy component to test routing
  * @returns Dummy component
  */
 export const Dummy = () => (
-  <Typography variant="h3">
-    Hier gibt's nichts zu sehen... noch nicht...
+  <Box
+  sx={{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "75vh",
+    padding: 2,
+  }}
+>
+  <Typography variant="h3" gutterBottom>
+    Here's nothing to see
   </Typography>
+  <Typography variant="h6">at least not yet...</Typography>
+</Box>
 );

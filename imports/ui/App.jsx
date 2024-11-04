@@ -16,7 +16,12 @@ import { Dummy } from "./Dummy";
 import PrivateRoute from "./PrivateRoute";
 import { Account } from "./Account";
 import { Categories } from "../collections/categories/client/components/Categories";
-
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import ChatIcon from "@mui/icons-material/ChatBubble";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { Link } from "react-router-dom";
 
 export const App = () => {
   const darkTheme = createTheme({
@@ -27,6 +32,8 @@ export const App = () => {
       },
     },
   });
+
+  const [value, setValue] = React.useState(0);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -44,6 +51,32 @@ export const App = () => {
               <Route path="/categories" element={<Categories />} />
             </Route>
           </Routes>
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          >
+            <BottomNavigationAction
+              to="/categories"
+              component={Link}
+              label="Categories"
+              icon={<BookmarkIcon />}
+            />
+            <BottomNavigationAction
+              to="/tasks"
+              component={Link}
+              label="Chat"
+              icon={<ChatIcon />}
+            />
+            <BottomNavigationAction
+              to="/account"
+              component={Link}
+              label="Settings"
+              icon={<SettingsIcon />}
+            />
+          </BottomNavigation>
         </Router>
       </Box>
     </ThemeProvider>
