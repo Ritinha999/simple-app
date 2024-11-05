@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Chrome mit \"localhost\" starten",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Skript ausführen: start",
+            "request": "launch",
+            "command": "meteor npm run start",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

@@ -8,6 +8,6 @@ Run `meteor npm install`
 
 Run `meteor`
 
-## Prettify code
+## Build for iOS
 
-Use `meteor npm run prettier` before submitting a pull request to prettify your code. This improves the readablity of your PR.
+Check [these instructions](BUILD.md).

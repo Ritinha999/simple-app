@@ -1,104 +1,51 @@
 import { Meteor } from "meteor/meteor";
-import React, { useState, Fragment } from "react";
-import { useTracker } from "meteor/react-meteor-data";
-import { TasksCollection } from "/imports/db/TasksCollection";
-import { Task } from "./Task";
-import { TaskForm } from "./TaskForm";
+import React from "react";
 import { LoginForm } from "./LoginForm";
+import { Box } from "@mui/material";
+import { TaskManager } from "../collections/tasks/client/components/TaskManager";
+import { MenuBar } from "./MenuBar";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { Dummy } from "./Dummy";
+import PrivateRoute from "./PrivateRoute";
+import { Account } from "./Account";
+import { Categories } from "../collections/categories/client/components/Categories";
 
-const toggleChecked = ({ _id, isChecked }) => {
-  Meteor.call("tasks.setIsChecked", _id, !isChecked);
-
-  /* TasksCollection.update(_id, {
-    $set: {
-      isChecked: !isChecked,
-    },
-  }); */
-};
-
-const deleteTask = ({ _id }) => Meteor.call("tasks.remove", _id);
 
 export const App = () => {
-  const user = useTracker(() => Meteor.user());
-
-  const [hideCompleted, setHideCompleted] = useState(false);
-
-  const hideCompletedFilter = { isChecked: { $ne: true } };
-
-  const userFilter = user ? { userId: user._id } : {};
-
-  const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
-
-  const tasks = useTracker(() => {
-    if (!user) {
-      return [];
-    }
-
-    return TasksCollection.find(
-      hideCompleted ? pendingOnlyFilter : userFilter,
-      {
-        sort: { createdAt: -1 },
-      }
-    ).fetch();
+  const darkTheme = createTheme({
+    palette: {
+      mode: "light",
+      primary: {
+        main: "#FE68B3",
+      },
+    },
   });
-
-  const pendingTasksCount = useTracker(() => {
-    if (!user) {
-      return 0;
-    }
-
-    return TasksCollection.find(pendingOnlyFilter).count();
-  });
-
-  const pendingTasksTitle = `${
-    pendingTasksCount ? ` (${pendingTasksCount})` : ""
-  }`;
-
-  const logout = () => Meteor.logout();
 
   return (
-    <div className="app">
-      <header>
-        <div className="app-bar">
-          <div className="app-header">
-            <h1>
-              📝️ Rita's To-Do List
-              {pendingTasksTitle}
-            </h1>
-          </div>
-        </div>
-      </header>
-
-      <div className="main">
-        {user ? (
-          <Fragment>
-            <div className="user" onClick={logout}>
-              username: {user.username}
-            </div>
-
-            <TaskForm user={user} />
-
-            <div className="filter">
-              <button onClick={() => setHideCompleted(!hideCompleted)}>
-                {hideCompleted ? "Show All" : "Hide Completed"}
-              </button>
-            </div>
-
-            <ul className="tasks">
-              {tasks.map((task) => (
-                <Task
-                  key={task._id}
-                  task={task}
-                  onCheckboxClick={toggleChecked}
-                  onDeleteClick={deleteTask}
-                />
-              ))}
-            </ul>
-          </Fragment>
-        ) : (
-          <LoginForm />
-        )}
-      </div>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <Box>
+        <CssBaseline />
+        <Router>
+          <MenuBar>Rita's To-Do Liste</MenuBar>
+          <Routes>
+            <Route path="/" element={<Navigate to="/tasks" />} />
+            <Route path="/about" element={<Dummy />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/tasks" element={<TaskManager />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/categories" element={<Categories />} />
+            </Route>
+          </Routes>
+        </Router>
+      </Box>
+    </ThemeProvider>
   );
 };

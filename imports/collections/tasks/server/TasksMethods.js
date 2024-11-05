@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
-import { TasksCollection } from "/imports/db/TasksCollection";
+import { TasksCollection } from "../iso/db/TasksCollection";
 
 Meteor.methods({
   /**
