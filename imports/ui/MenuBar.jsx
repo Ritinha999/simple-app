@@ -22,7 +22,8 @@ export function MenuBar({}) {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
-              to="/tasks" component={Link}
+              to="/tasks"
+              component={Link}
             >
               <ListAltIcon />
             </IconButton>

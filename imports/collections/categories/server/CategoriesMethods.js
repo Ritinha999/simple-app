@@ -11,7 +11,7 @@ Meteor.methods({
     check(title, String);
     title = title.trim();
 
-    if (!this.userId) {
+    if (!Meteor.userId()) {
       throw new Meteor.Error("Not authorized.");
     }
 
@@ -22,14 +22,14 @@ Meteor.methods({
     await CategoriesCollection.insertAsync({
       title,
       createdAt: new Date(),
-      userId: this.userId,
+      userId: Meteor.userId(),
     });
   },
 
   async "categories.remove"(id) {
     check(id, String);
 
-    if (!this.userId) {
+    if (!Meteor.userId()) {
       throw new Meteor.Error("Not authorized.");
     }
 

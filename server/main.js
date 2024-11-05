@@ -1,11 +1,8 @@
 import { Meteor } from "meteor/meteor";
-import 'meteor/aldeed:collection2/dynamic';
-import 'meteor/aldeed:collection2/static';
+import "meteor/aldeed:collection2/static";
 import { Accounts } from "meteor/accounts-base";
 import "/imports/collections/tasks/server";
 import "/imports/collections/categories/server";
-
-Collection2.load();
 
 const SEED_USERNAME = "meteorite";
 const SEED_PASSWORD = "password";

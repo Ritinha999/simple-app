@@ -39,7 +39,9 @@ export default function ProfilMenu() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem to="/account" component={Link} onClick={handleClose}>My account</MenuItem>
+        <MenuItem to="/account" component={Link} onClick={handleClose}>
+          My account
+        </MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </div>

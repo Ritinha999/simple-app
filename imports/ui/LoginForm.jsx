@@ -85,7 +85,7 @@ export const LoginForm = () => {
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Log In
         </Button>
-        
+
         <Link to="/about" variant="body2" component={RouterLink}>
           About
         </Link>
