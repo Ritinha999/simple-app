@@ -31,11 +31,9 @@ const CategoryItem = ({ category }) => {
         </IconButton>
       }
     >
-      <ListItemIcon>
-      </ListItemIcon>
+
       <ListItemText
-        primary={category.text}
-        sx={{ textDecoration: category.isChecked ? "line-through" : "none" }}
+        primary={category.title}
       />
     </ListItem>
   );
