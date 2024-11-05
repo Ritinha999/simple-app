@@ -1,4 +1,5 @@
 import assert from "assert";
+import "../imports/collections/categories/server/tests";
 
 describe("simple-app", function () {
   it("package.json has correct name", async function () {
