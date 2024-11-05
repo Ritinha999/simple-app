@@ -1,2 +1,2 @@
-import "./CategoriesMethods.tests"
-//import "./CategoriesPublications.tests"
+import "./CategoriesMethods.tests";
+import "./CategoriesPublications.tests";

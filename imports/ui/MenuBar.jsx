@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import { ListAlt as ListAltIcon } from "@mui/icons-material";
 import { useTracker } from "meteor/react-meteor-data";
 import ProfilMenu from "./ProfilMenu";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 
 export function MenuBar({}) {
@@ -26,7 +26,8 @@ export function MenuBar({}) {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
-              to="/tasks" component={Link}
+              to="/tasks"
+              component={Link}
             >
               <ListAltIcon />
             </IconButton>
@@ -35,7 +36,6 @@ export function MenuBar({}) {
             </Typography>
 
             <ProfilMenu></ProfilMenu>
-
           </Toolbar>
         </AppBar>
       </Box>

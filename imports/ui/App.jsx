@@ -17,7 +17,6 @@ import PrivateRoute from "./PrivateRoute";
 import { Account } from "./Account";
 import { Categories } from "../collections/categories/client/components/Categories";
 
-
 export const App = () => {
   const darkTheme = createTheme({
     palette: {

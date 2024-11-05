@@ -2,10 +2,10 @@ import { TasksCollection } from "../../iso/db/TasksCollection";
 import { useFind, useSubscribe } from "meteor/react-meteor-data";
 
 /**
- * Hook to get all tasks from the database. 
+ * Hook to get all tasks from the database.
  * Use this hook inside a React component.
  * @category Hooks
- * @returns {{tasks: Array, loading: Boolean}} 
+ * @returns {{tasks: Array, loading: Boolean}}
  * Object with tasks and loading state
  * @example
  *
@@ -16,7 +16,7 @@ import { useFind, useSubscribe } from "meteor/react-meteor-data";
  * if (loading) return <div>Loading...</div>;
  *
  * // Show tasks
- * return <div>{tasks.map(task => <Task key={task._id} 
+ * return <div>{tasks.map(task => <Task key={task._id}
  * task={task} />)}</div>;
  */
 export const useTasks = () => {
