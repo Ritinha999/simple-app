@@ -29,8 +29,6 @@ export const App = () => {
     },
   });
 
-  const [value, setValue] = React.useState(0);
-
   return (
     <ThemeProvider theme={darkTheme}>
       <Box>
@@ -38,12 +36,12 @@ export const App = () => {
         <Router>
           <MenuBar>Rita's To-Do Liste</MenuBar>
           <Routes>
-            <Route path="/" element={<Navigate to="/tasks" />} />
+            <Route path="/" element={<Navigate to="/categories" />} />
             <Route path="/about" element={<Dummy />} />
             <Route path="/login" element={<LoginForm />} />
             <Route element={<PrivateRoute />}>
-              <Route path="/tasks" element={<TaskManager />} />
-              <Route path="/account" element={<Account />} />
+              <Route path="/chat" element={<Dummy />} />
+              <Route path="/settings" element={<Account />} />
               <Route path="/categories" element={<Categories />} />
             </Route>
           </Routes>
