@@ -1,9 +1,11 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import { useTracker } from "meteor/react-meteor-data";
 
 export const Account = () => {
   const user = useTracker(() => Meteor.user());
+
+  const logout = () => Meteor.logout();
 
   if (!user) {
     return <div>Loading...</div>;
@@ -16,7 +18,7 @@ export const Account = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
+        height: "75vh",
         padding: 2,
       }}
     >
@@ -25,6 +27,9 @@ export const Account = () => {
       </Typography>
       <Typography variant="h6">Username:</Typography>
       <Typography variant="body1">{user.username}</Typography>
+      <Button type="submit" variant="contained" color="primary" onClick={logout} sx={{ mt: 4 }}>
+        Log Out
+      </Button>
     </Box>
   );
 };
