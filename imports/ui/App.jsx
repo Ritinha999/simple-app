@@ -34,7 +34,6 @@ export const App = () => {
       <Box>
         <CssBaseline />
         <Router>
-          <MenuBar>Rita's To-Do Liste</MenuBar>
           <Routes>
             <Route path="/" element={<Navigate to="/categories" />} />
             <Route path="/about" element={<Dummy />} />

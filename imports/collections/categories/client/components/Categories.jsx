@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  IconButton,
-  TextField,
-  Button,
-} from "@mui/material";
+import { IconButton, TextField, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { LoadingScreen } from "../../../../ui/LoadingScreen";
 import { useCategories } from "../hooks/useCategories";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const handleDeleteClick = (category) => {
   Meteor.call("categories.remove", category._id);
@@ -20,22 +14,29 @@ const handleDeleteClick = (category) => {
 
 const CategoryItem = ({ category }) => {
   return (
-    <ListItem
-      secondaryAction={
-        <IconButton
+    <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: 1,
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+        }}
+      >
+        <Typography variant="body1" align="center">
+          {category.title}{" "}
+        </Typography>
+        <Button
           edge="end"
           aria-label="delete"
           onClick={() => handleDeleteClick(category)}
         >
           <DeleteIcon />
-        </IconButton>
-      }
-    >
-
-      <ListItemText
-        primary={category.title}
-      />
-    </ListItem>
+        </Button>
+      </Box>
+    </Grid>
   );
 };
 
@@ -95,11 +96,11 @@ export const Categories = ({}) => {
         </Button>
       </Box>
 
-      <List>
+      <Grid container spacing={2}>
         {categories.map((category, index) => {
           return <CategoryItem key={index} category={category} />;
         })}
-      </List>
+      </Grid>
     </Box>
   );
 };
