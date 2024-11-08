@@ -18,7 +18,7 @@ export const Account = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "75vh",
+        height: "90vh",
         padding: 2,
       }}
     >
