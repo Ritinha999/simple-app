@@ -42,7 +42,7 @@ const CategoryItem = ({ category }) => {
           }
           action=
           {
-            <IconButton aria-label="settings" onClick={handleDeleteClick}>
+            <IconButton aria-label="settings" onClick={() => handleDeleteClick(category)}>
               <DeleteIcon />
             </IconButton>
           }
