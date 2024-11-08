@@ -6,7 +6,7 @@ import { CategoriesCollection } from "../../iso/db/CategoriesCollection";
 describe("categories methods", function () {
   beforeEach(async function () {
     // clear the database
-    await CategoriesCollection.remove({});
+    await CategoriesCollection.removeAsync({});
 
     // stub Meteor.userId and Meteor.user
     sinon.stub(Meteor, "userId").returns("testId");
