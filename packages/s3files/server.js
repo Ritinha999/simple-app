@@ -7,6 +7,7 @@ import { S3 } from "@aws-sdk/client-s3"; /* http://docs.aws.amazon.com/AWSJavaSc
 /* See fs-extra and graceful-fs NPM packages */
 /* For better i/o performance */
 import fs from "fs";
+import { S3Files } from "./common";
 
 const s3Conf = Meteor.settings.s3 || {};
 
@@ -35,7 +36,7 @@ const s3 = new S3({
   },
 });
 
-export function setS3Upload(collection, s3folder = "assets") {
+function setS3Upload(collection, s3folder = "assets") {
   if (!(collection instanceof FilesCollection))
     throw new Error("Collection must be a FilesCollection");
   if (!(typeof s3folder === "string"))
@@ -89,7 +90,6 @@ function onAfterUploadHook(fileRef, collection, s3folder) {
             upd["$set"]["versions." + version + ".meta.pipePath"] = filePath;
             try {
               await collection.collection.updateAsync(fileRef._id, upd);
-              console.log("Fileref aktualisiert:", fileRef._id);
               collection.unlink(
                 await collection.collection.findOneAsync(fileRef?._id),
                 version
@@ -105,7 +105,6 @@ function onAfterUploadHook(fileRef, collection, s3folder) {
 }
 
 function interceptDownloadHook(http, fileRef, version, collection) {
-  console.log("Intercepting Download", fileRef, version);
   let path;
 
   /** Wenn der Datei nicht in S3 geladen wurde */
@@ -222,3 +221,25 @@ async function replaceRemove(collection) {
     }
   };
 }
+
+/**
+ * Get a URL to download a file from S3
+ * @param {string} fileId The ID of the file
+ * @returns {string} The URL to download the file
+ */
+Meteor.methods({
+  "s3files.getUrl": async function (fileId) {
+    if (!this.userId) return;
+    const fileObj = await S3Files.collection.findOneAsync(fileId);
+    if (fileObj) {
+      const url = S3Files.link(fileObj);
+      return url;
+    }
+  },
+});
+
+Meteor.startup(() => {
+  setS3Upload(S3Files);
+});
+
+export { S3Files, setS3Upload };

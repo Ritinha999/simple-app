@@ -18,8 +18,8 @@ Package.onUse(function (api) {
   api.versionsFrom("2.16");
   api.use("ecmascript");
   api.use("ostrio:files");
-  api.mainModule("common.js", ["client", "server"]);
-  api.addFiles("server.js", "server");
+  api.mainModule("client.js", "client"); // Ändern Sie addFiles zu mainModule
+  api.mainModule("server.js", "server");
   api.export("S3Files", ["server", "client"]);
 });
 
