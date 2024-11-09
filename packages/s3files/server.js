@@ -15,32 +15,42 @@ const bound = Meteor.bindEnvironment((callback) => {
   return callback();
 });
 
-if (
-  Meteor.isServer &&
-  !(s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region)
-)
-  throw new Meteor.Error(
-    "no-s3-settings",
-    "S3 settings not present. Make sure to add { s3: { key, secret, bucket, region } } to your settings.json."
-  );
+let s3;
 
-const s3 = new S3({
-  credentials: {
-    secretAccessKey: s3Conf.secret,
-    accessKeyId: s3Conf.key,
-  },
-  region: s3Conf.region,
-  httpOptions: {
-    timeout: 6000,
-    agent: false,
-  },
-});
+const initS3 = () => {
+  if (
+    Meteor.isServer &&
+    !(s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region)
+  )
+    throw new Meteor.Error(
+      "s3files.no-settings",
+      "S3 settings not present. Make sure to add { s3: { key, secret, bucket, region } } to your settings.json."
+    );
+
+  s3 = new S3({
+    credentials: {
+      secretAccessKey: s3Conf.secret,
+      accessKeyId: s3Conf.key,
+    },
+    region: s3Conf.region,
+    httpOptions: {
+      timeout: 6000,
+      agent: false,
+    },
+  });
+};
 
 function setS3Upload(collection, s3folder = "assets") {
   if (!(collection instanceof FilesCollection))
-    throw new Error("Collection must be a FilesCollection");
+    throw new Meteor.Error(
+      "s3files.type-error",
+      "Collection must be a FilesCollection"
+    );
   if (!(typeof s3folder === "string"))
-    throw new Error("s3folder needs to be a string");
+    throw new Meteor.Error(
+      "s3files.type-error",
+      "s3folder needs to be a string"
+    );
 
   collection.onAfterUpload = function onAfterUploadReplace(fileRef) {
     onAfterUploadHook(fileRef, collection, s3folder);
@@ -230,7 +240,10 @@ async function replaceRemove(collection) {
 Meteor.methods({
   "s3files.getUrl": async function (fileId) {
     if (!this.userId) return;
-    const fileObj = await S3Files.collection.findOneAsync(fileId);
+    const fileObj = await S3Files.collection.findOneAsync({
+      _id: fileId,
+      userId: this.userId,
+    });
     if (fileObj) {
       const url = S3Files.link(fileObj);
       return url;
@@ -239,7 +252,15 @@ Meteor.methods({
 });
 
 Meteor.startup(() => {
-  setS3Upload(S3Files);
+  try {
+    initS3();
+    setS3Upload(S3Files);
+  } catch (e) {
+    console.warn(
+      "s3files: Error setting up S3 upload. Files will be stored locally on the server. This is probably not what you want."
+    );
+    console.error(e);
+  }
 });
 
 export { S3Files, setS3Upload };

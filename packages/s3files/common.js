@@ -1,7 +1,7 @@
 import { FilesCollection } from "meteor/ostrio:files";
 
 export const S3Files = new FilesCollection({
-  debug: true,
+  debug: false, // Change to `true` for debugging
   collectionName: "S3Files",
   storagePath: "/tmp",
   allowClientCode: false, // Disallow remove files from Client
@@ -12,7 +12,6 @@ export const S3Files = new FilesCollection({
     }
     return "File size may not exceed 30MB";
   },
-
   protected: async function (fileRef) {
     if (!fileRef) return false;
 
