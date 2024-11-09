@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Box, Button } from "@mui/material";
 import { useTracker } from "meteor/react-meteor-data";
 import { FileUpload } from "./Files/FileUpload";
+import { FileDisplay } from "./Files/FileDisplay";
 
 export const Account = () => {
   const user = useTracker(() => Meteor.user(), []);
@@ -26,6 +27,7 @@ export const Account = () => {
       <Typography variant="h3" gutterBottom>
         My Account
       </Typography>
+      {user.profilePictureId && <FileDisplay fileId={user.profilePictureId} />}
       <Typography variant="h6">Username:</Typography>
       <Typography variant="body1">{user.username}</Typography>
       <Button

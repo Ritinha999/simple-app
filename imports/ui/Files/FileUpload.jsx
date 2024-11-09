@@ -10,7 +10,6 @@ import { FileDisplay } from "./FileDisplay";
 export const FileUpload = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState(null);
-  const [uploadedFileId, setUploadedFileId] = useState();
 
   const onStart = () => {
     setUploading(true);
@@ -22,7 +21,11 @@ export const FileUpload = () => {
     if (error) {
       setUploadError(error);
     } else {
-      setUploadedFileId(fileObj._id);
+      Meteor.call("users.updateProfilePicture", fileObj._id, (err) => {
+        if (err) {
+          alert(err.reason);
+        }
+      });
     }
   };
 
@@ -38,7 +41,6 @@ export const FileUpload = () => {
           {uploadError.message}
         </Typography>
       )}
-      {uploadedFileId && <FileDisplay fileId={uploadedFileId} />}
     </>
   );
 };
