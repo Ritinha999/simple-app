@@ -9,7 +9,10 @@ import { S3Files } from "./common.js";
  *  This function should take two arguments: error and fileObj;
  *  error is null if no error occurred, and fileObj is the uploaded file object.
  */
-const handleFileUpload = (e, onStart, onEnd) => {
+const handleFileUpload = (
+  e,
+  { onStart = undefined, onEnd = undefined } = {}
+) => {
   e.preventDefault();
   const file = e.target.files[0];
   if (file) {

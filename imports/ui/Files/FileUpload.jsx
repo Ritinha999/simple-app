@@ -26,7 +26,7 @@ export const FileUpload = () => {
     }
   };
 
-  const onChange = (e) => handleFileUpload(e, onStart, onEnd);
+  const onChange = (e) => handleFileUpload(e, { onStart, onEnd });
 
   return (
     <>
