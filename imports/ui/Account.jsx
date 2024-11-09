@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box, Button } from "@mui/material";
 import { useTracker } from "meteor/react-meteor-data";
-import { FileUpload } from "./FileUpload";
+import { FileUpload } from "./Files/FileUpload";
 
 export const Account = () => {
   const user = useTracker(() => Meteor.user(), []);
