@@ -2,7 +2,7 @@
   "name": "simple-app",
   "private": true,
   "scripts": {
-    "start": "meteor run",
+    "start": "meteor run --settings settings.json",
     "prettier": "npx prettier --write \"**/*.{js,jsx}\"",
     "test": "meteor test --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",

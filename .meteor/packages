@@ -29,3 +29,4 @@ accounts-github
 service-configuration
 aldeed:collection2
 meteortesting:mocha
+bratelefant:s3files

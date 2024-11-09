@@ -1,0 +1,8 @@
+{
+  "s3": {
+    "key": "1234xyz",
+    "secret": "xyz1234",
+    "bucket": "mysuperbucket",
+    "region": "eu-central-1"
+  }
+}
