@@ -30,6 +30,7 @@ export const FileUpload = () => {
 
   return (
     <>
+      <Typography variant="h6">Upload your profile picture</Typography>
       <input type="file" onChange={onChange} />
       {uploading && <Typography variant="body2">Uploading...</Typography>}
       {uploadError && (

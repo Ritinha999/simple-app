@@ -23,7 +23,7 @@ export const FileDisplay = ({ fileId }) => {
     <>
       {fileUrl ? (
         <div>
-          <img src={fileUrl} alt="Uploaded file" style={{ maxWidth: "100%" }} />
+          <img src={fileUrl} alt="Uploaded file" style={{ maxWidth: 240 }} />
         </div>
       ) : (
         <Typography variant="body2">Loading...</Typography>
