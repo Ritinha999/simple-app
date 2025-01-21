@@ -1,12 +1,9 @@
 import React from "react";
 import { Typography, Box, Button } from "@mui/material";
-import { useTracker } from "meteor/react-meteor-data";
-import { FileUpload } from "./Files/FileUpload";
+import { useAuthContext } from "./contexts/AuthProvider";
 
 export const Account = () => {
-  const user = useTracker(() => Meteor.user(), []);
-
-  const logout = () => Meteor.logout();
+  const { user, logout } = useAuthContext();
 
   if (!user) {
     return <div>Loading...</div>;
