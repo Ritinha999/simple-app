@@ -34,6 +34,7 @@ export const Account = () => {
       >
         Log Out
       </Button>
+      <FileUpload />
     </Box>
   );
 };

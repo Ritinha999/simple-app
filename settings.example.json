@@ -1,8 +1,0 @@
-{
-  "s3": {
-    "key": "xyz",
-    "secret": "abc",
-    "bucket": "ritas-app",
-    "region": "eu-central-1"
-  }
-}

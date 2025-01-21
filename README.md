@@ -2,11 +2,14 @@
 
 ## Installation
 
-Run `meteor npm install`
+- Run `meteor npm install`
+- Copy `settings.json.example` to `settings.json` and customize it (cf. instructions below)
+
+**CAUTION:** Double check, that `settings.json` will not get pushed to github or somewhere else public, for securitry reasons.
 
 ## Start the App
 
-Run `meteor`
+Run `meteor npm run start`
 
 ## Build for iOS
 
