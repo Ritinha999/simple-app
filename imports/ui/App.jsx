@@ -17,7 +17,7 @@ import PrivateRoute from "./PrivateRoute";
 import { Account } from "./Account";
 import { Categories } from "../collections/categories/client/components/Categories";
 import { Navigation } from "./Navigation";
-
+import { AuthProvider } from "./contexts/AuthProvider";
 
 export const App = () => {
   const darkTheme = createTheme({
@@ -31,22 +31,24 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Box>
-        <CssBaseline />
-        <Router>
-          <Routes>
-            <Route path="/" element={<Navigate to="/categories" />} />
-            <Route path="/about" element={<Dummy />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route element={<PrivateRoute />}>
-              <Route path="/chat" element={<Dummy />} />
-              <Route path="/settings" element={<Account />} />
-              <Route path="/categories" element={<Categories />} />
-            </Route>
-          </Routes>
-          <Navigation />
-        </Router>
-      </Box>
+      <AuthProvider>
+        <Box>
+          <CssBaseline />
+          <Router>
+            <Routes>
+              <Route path="/" element={<Navigate to="/categories" />} />
+              <Route path="/about" element={<Dummy />} />
+              <Route path="/login" element={<LoginForm />} />
+              <Route element={<PrivateRoute />}>
+                <Route path="/chat" element={<Dummy />} />
+                <Route path="/settings" element={<Account />} />
+                <Route path="/categories" element={<Categories />} />
+              </Route>
+            </Routes>
+            <Navigation />
+          </Router>
+        </Box>
+      </AuthProvider>
     </ThemeProvider>
   );
 };
